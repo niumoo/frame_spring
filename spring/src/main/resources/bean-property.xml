@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 1. 使用无参构造方法创建bean，没有无参构造方法会报错，IOC入门 ，在bean标签中让class为类的全路径，id一半为首字母小写的类名-->
+	<bean id="user" class="net.codingme.bean.User" ></bean>
+	
+	<!-- 2.使用静态工厂方法创建bean  -->
+	<bean id="userByStatic" class="net.codingme.bean.StaticFactory" factory-method="getUser" />
+	
+	<!-- 3.1.使用实例工厂创建bean -->
+	<bean id="instanceFactory" class="net.codingme.bean.InstanceFactory"></bean>
+	
+	<!-- 3.2.通过实例工厂获取bean -->
+	<bean id="userByInstanceFactory" factory-bean="instanceFactory" factory-method="getUser" />
+	
+	
+	
+	<!-- 4.4.2.1 使用set注入参数 -->
+	<bean id="book" class="net.codingme.property.Book" >
+		<!-- 注入属性值 -->	
+		<property name="bookName" value="Thinking in JAVA" />
+	</bean>
+	
+	<!-- 4.4.2.2  使用有参构造注入属性(不常用） -->
+	<bean id="propertyDemoByStruct" class="net.codingme.property.PropertyDemoByStruct">
+		<!-- 使用有参构造注入 -->
+		<constructor-arg name="username" value="ZXY" />
+	</bean>
+	
+	<!-- 4.4.2.3 注入对象类型的属性 -->
+	<!-- 1.配置service和daoe的对象 -->
+	<bean id="userDao" class="net.codingme.property.UserDao" />
+	<bean id="userService" class="net.codingme.property.UserService">
+		<!-- 注入dao类型  ，这里不能使用value属性，value适用于字符串，现在是对象，使用ref-->
+		<property name="userDao" ref="userDao" />	
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</beans>
